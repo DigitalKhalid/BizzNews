@@ -1,0 +1,78 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>News List<br><small>You can change or delete news here.<p><a href="/panel/news/add">Add News</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>News</li>
+    <li><a href="">News List</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Image</th>
+                    <th>Catagory</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Writer</th>
+                    <th>Views</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for news in news %}
+                <tr>
+                    <td class="text-center">{{news.pk}}</td>
+                    <td class="text-center"><img style="display: inline-block; width: 50px; height: 50px" src="{{news.news_image.url}}" alt="News Image" class="img-circle"></td>
+                    <!-- <td>{{news.news_catagoryid}}</td> -->
+                    {% for subcatagory in subcatagory %}
+                        {% if subcatagory.pk == news.news_catagoryid %}
+                            {% for catagory in catagory %}
+                                {% if catagory.pk == subcatagory.catagoryid %}
+                                    <td>{{catagory.catagory}} | {{subcatagory.subcatagory}}</td>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <td>{{news.news_title}}</td>
+                    <td>{{news.news_date}}</td>
+                    <td>{{news.news_writer}}</td>
+                    <td><span class="label label-info">{{news.news_views}}</span></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'edit_news' pk=news.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'delete_news' pk=news.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

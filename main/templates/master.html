@@ -1,0 +1,559 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{site_name}}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{{site_icon.url}}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/fontawesome-5.0.8/css/fontawesome-all.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body class="animsition">
+	
+	<!-- Header -->
+	<header>
+		<div class="container-menu-desktop">
+
+			<!-- topbar -->
+			<div class="topbar">
+				<div class="content-topbar h-100 p-rl-30">
+
+					<!-- Scrolling topbar -->
+					<div class="align-self-stretch size-w-0 pos-relative m-r-30">
+						<div class="f2-s-1 flex-wr-s-c s-full ab-t-l p-b-2">
+							<span class="text-uppercase cl0 p-r-8">
+								Trending Now:
+							</span>
+
+							<span class="dis-inline-block cl16 slide100-txt pos-relative size-w-0" data-in="fadeInDown" data-out="fadeOutDown">
+								<span class="dis-inline-block slide100-txt-item animated visible-false">
+									BizzSole developing BizzNews
+								</span>
+
+								<span class="dis-inline-block slide100-txt-item animated visible-false">
+									BizzSole starts web development with django
+								</span>
+							</span>
+						</div>
+					</div>
+					<!-- End Scrolling topbar -->
+
+					<!-- Static Topbar -->
+					<div class="flex-wr-e-c">
+
+						<!-- Menu -->
+						<div class="left-topbar">
+
+							<!-- Topbar Quote -->
+							<span class="left-topbar-item flex-wr-s-c">
+								<span>
+									Pakistan
+								</span>
+
+								<img class="m-b-1 m-rl-8" src="{% static 'images/icons/icon-night.png' %}" alt="IMG">
+
+								<span>
+									Zindabad
+								</span>
+							</span>
+							<!-- End Topbar Quote -->
+
+							<!-- Menu -->
+							<a href="about" class="left-topbar-item">
+								About
+							</a>
+
+							<a href="#" class="left-topbar-item">
+								Contact
+							</a>
+
+							<a href="#" class="left-topbar-item">
+								Sign up
+							</a>
+
+							<a href="#" class="left-topbar-item">
+								Log in
+							</a>
+
+							<a href="#" class="left-topbar-item"></a>
+						</div>
+						<!-- End Menu -->
+
+						<!-- Topbar Social Icons -->
+						<div class="right-topbar p-l-18">
+							<a href={{site_facebook}}>
+								<span class="fab fa-facebook-f"></span>
+							</a>
+
+							<a href={{site_twiter}}>
+								<span class="fab fa-twitter"></span>
+							</a>
+
+							<a href={{site_youtube}}>
+								<span class="fab fa-youtube"></span>
+							</a>
+						</div>
+						<!-- End Topbar Social Icons -->
+
+					</div>	
+					<!-- End Static Topbar -->
+
+				</div>
+			</div>
+			<!-- End topbar -->
+
+			<!-- Header Mobile -->
+			<div class="wrap-header-mobile">
+				<!-- Logo moblie -->		
+				<div class="logo-mobile">
+					<a href="/"><img src="{{site_logo.url}}" alt="LOGO"></a>
+				</div>
+
+				<!-- Button show menu -->
+				<div class="btn-show-menu-mobile hamburger hamburger--squeeze m-r--8">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</div>
+			</div>
+			<!-- End Header Mobile -->
+
+			<!-- Menu Mobile -->
+			<div class="menu-mobile">
+				<ul class="topbar-mobile">
+					<li class="left-topbar">
+						<span class="left-topbar-item flex-wr-s-c">
+							<span>
+								Pakistan
+							</span>
+
+							<img class="m-b-1 m-rl-8" src="{% static 'images/icons/icon-night.png' %}" alt="IMG">
+
+							<span>
+								Zindabad
+							</span>
+						</span>
+					</li>
+
+					<li class="left-topbar">
+						<a href="#" class="left-topbar-item">
+							About
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Contact
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Sing up
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Log in
+						</a>
+					</li>
+
+					<li class="right-topbar">
+						<a href="#">
+							<span class="fab fa-facebook-f"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-twitter"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-pinterest-p"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-vimeo-v"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-youtube"></span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="main-menu-m">
+					<li>
+						<a href="/">Home</a>
+						<!-- <ul class="sub-menu-m">
+							<li><a href="/">Homepage v1</a></li>
+							<li><a href="home-02.html">Homepage v2</a></li>
+							<li><a href="home-03.html">Homepage v3</a></li>
+						</ul> -->
+
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+					</li>
+
+					<li>
+						<a href="category-01.html">News</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Entertainment </a>
+					</li>
+
+					<li>
+						<a href="category-01.html">Business</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Travel</a>
+					</li>
+
+					<li>
+						<a href="category-01.html">Life Style</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Video</a>
+					</li>
+
+					<li>
+						<a href="#">Features</a>
+						<ul class="sub-menu-m">
+							<li><a href="category-01.html">Category Page v1</a></li>
+							<li><a href="category-02.html">Category Page v2</a></li>
+							<li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
+							<li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
+							<li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
+							<li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
+							<li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
+							<li><a href="about.html">About Us</a></li>
+							<li><a href="contact.html">Contact Us</a></li>
+						</ul>
+
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<!-- End Menu Mobile -->
+
+			<!-- Logo desktop -->
+			<div class="wrap-logo no-banner container">		
+				<div class="logo">
+					<a href="/"><img src="{{site_logo.url}}" alt="LOGO"></a>
+				</div>
+			</div>	
+			<!-- End Logo desktop -->
+			
+			<!-- Menu desktop -->
+			<div class="wrap-main-nav">
+				<div class="main-nav">
+					<nav class="menu-desktop">
+						<a class="logo-stick" href="/">
+							<img src="{{site_logo.url}}" alt="LOGO">
+						</a>
+
+						<ul class="main-menu justify-content-center">
+							<li class="main-menu-active">
+								<a href="/">Home</a>
+							</li>
+
+							<!-- Main Menu -->
+							{% for catagory in catagory %}
+							<li class="mega-menu-item">
+								<a href="">{{catagory.catagory}}</a>
+
+								<!-- Sub Menu -->
+								<div class="sub-mega-menu">
+									
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#cat-0" role="tab">All</a>
+										{% for subcatagory in subcatagory %}
+											{% if catagory.pk == subcatagory.catagoryid %}
+												<a class="nav-link" data-toggle="pill" href="#cat-{{subcatagory.pk}}" role="tab">{{subcatagory.subcatagory}}</a>
+											{% endif %}
+										{% endfor %}
+									</div>
+
+									<!-- Sub Menu Content -->
+									<div class="tab-content">
+											<!-- related to All -->
+											
+											<div class="tab-pane show active" id="cat-0" role="tabpanel">
+												{% for subcatagory in subcatagory %}
+												{% if catagory.pk == subcatagory.catagoryid %}
+												<div class="row">
+													{% for news in news %}
+														{% if news.news_catagoryid == subcatagory.pk %}	
+															<!-- Content -->
+															<div class="col-3">
+																<div>
+																	<a href="/news/{{news.pk}}" class="wrap-pic-w hov1 trans-03">
+																		<img src="{{news.news_image.url}}" alt="IMG">
+																	</a>
+
+																	<div class="p-t-10">
+																		<h5 class="p-b-5">
+																			<a href="" class="f1-s-5 cl3 hov-cl10 trans-03">
+																				{{news.news_title}}
+																			</a>
+																		</h5>
+
+																		<span class="cl8">
+																			<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																				{{subcatagory.subcatagory}}
+																			</a>
+
+																			<span class="f1-s-3 m-rl-3">
+																				By {{news.news_writer}}
+																			</span>
+
+																			<span class="f1-s-3">
+																				{{news.news_date}}
+																			</span>
+																		</span>
+																	</div>
+																</div>
+																
+															</div>
+															<!-- End Content -->
+														{% endif %}
+													{% endfor %}
+												</div>
+												{% endif %}
+												{% endfor %}
+											</div>
+											
+
+											<!-- Related to subcatagory -->
+											{% for subcatagory in subcatagory %}
+											{% if catagory.pk == subcatagory.catagoryid %}
+											<div class="tab-pane" id="cat-{{subcatagory.pk}}" role="tabpanel">
+												<div class="row">
+													{% for news in news %}
+														{% if news.news_catagoryid == subcatagory.pk %}	
+															<!-- Content -->
+															<div class="col-3">
+																<div>
+																	<a href="/news/{{news.pk}}" class="wrap-pic-w hov1 trans-03">
+																		<img src="{{news.news_image.url}}" alt="IMG">
+																	</a>
+
+																	<div class="p-t-10">
+																		<h5 class="p-b-5">
+																			<a href="" class="f1-s-5 cl3 hov-cl10 trans-03">
+																				{{news.news_title}}
+																			</a>
+																		</h5>
+
+																		<span class="cl8">
+																			<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																				{{subcatagory.subcatagory}}
+																			</a>
+
+																			<span class="f1-s-3 m-rl-3">
+																				By {{news.news_writer}}
+																			</span>
+
+																			<span class="f1-s-3">
+																				{{news.news_date}}
+																			</span>
+																		</span>
+																	</div>
+																</div>
+																
+															</div>
+															<!-- End Content -->
+														{% endif %}
+													{% endfor %}
+												</div>
+											</div>
+											{% endif %}
+											{% endfor %}
+									</div>
+									<!-- End Sub Menu Content -->
+								</div>
+								<!-- End Sub Menu -->
+							</li>
+							{% endfor %}
+							<!-- End Main Menu -->
+
+							<li>
+								<a href="#">Features</a>
+								<ul class="sub-menu">
+									<li><a href="category-01.html">Category Page v1</a></li>
+									<li><a href="category-02.html">Category Page v2</a></li>
+									<li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
+									<li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
+									<li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
+									<li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
+									<li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
+									<li><a href="about.html">About Us</a></li>
+									<li><a href="contact.html">Contact Us</a></li>
+								</ul>
+							</li>
+							<!-- End Main Menu -->
+
+						</ul>
+					</nav>
+				</div>
+			</div>	
+			<!-- End Menu desktop -->
+
+		</div>
+	</header>
+	<!-- End Header -->
+
+	{% block mainblock %}
+    {% endblock %}
+
+	<!-- Footer -->
+	<footer>
+		<div class="bg2 p-t-40 p-b-25">
+			<div class="container">
+				<div class="row">
+
+					<!-- Footer Site Info -->
+					<div class="col-lg-4 p-b-20">
+
+						<!-- Footer Logo -->
+						<div class="size-h-3 flex-s-c">
+							<a href="/">
+								<img class="max-s-full" src="{{site_logo.url}}" alt="LOGO">
+							</a>
+						</div>
+						<!-- End Footer Logo -->
+
+						<!-- Footer Contact -->
+						<div>
+							<p class="f1-s-1 cl11 p-b-16">
+								Any questions? Call us on {{site_contact}} <br>
+								or email us on {{site_email}}
+							</p>
+
+							<div class="p-t-15">
+								<a href={{site_facebook}} class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-facebook-f"></span>
+								</a>
+
+								<a href={{site_twiter}} class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-twitter"></span>
+								</a>
+
+								<a href={{site_youtube}} class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-youtube"></span>
+								</a>
+							</div>
+						</div>
+						<!-- End Footer Contact -->
+
+					</div>
+					<!-- End Footer Site Info -->
+
+					<!-- Footer Popular Post -->
+					<div class="col-sm-6 col-lg-4 p-b-20">
+						<div class="size-h-3 flex-s-c">
+							<h5 class="f1-m-7 cl0">
+								Popular News
+							</h5>
+						</div>
+
+						<ul>
+							{% for popular_news in popular_news %}
+							<li class="flex-wr-sb-s p-b-20">
+								<a href="{% url 'news_detail' pk=popular_news.pk %}" class="size-w-4 wrap-pic-w hov1 trans-03">
+									<img style="height:50px; width:80px;"; src="{{popular_news.news_image.url}}" alt="IMG">
+								</a>
+
+								<div class="size-w-5">
+									<h6 style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis" class="p-b-5">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+											{{popular_news.news_title}}
+										</a>
+									</h6>
+
+									<span class="f1-s-3 cl6">
+										{{popular_news.news_date}}
+									</span>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- End Footer Popular Post -->
+					
+					<!-- Footer Catagory -->
+					<div class="col-sm-6 col-lg-4 p-b-20">
+						<div class="size-h-3 flex-s-c">
+							<h5 class="f1-m-7 cl0">
+								Category
+							</h5>
+						</div>
+
+						<ul class="m-t--12">
+							{% for catagory in catagory %}
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									{{catagory.catagory}}
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- End Footer Catagory -->
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Copywrite -->
+		<div class="bg11">
+			<div class="container size-h-4 flex-c-c p-tb-15">
+				<span class="f1-s-1 cl0 txt-center">
+					<a href="/" class="f1-s-1 cl10 hov-link1">
+					Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Powered <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://bizzsole.com" target="BizzSole">BizzSole</a>
+				</span>
+			</div>
+		</div>
+		<!-- End Copywrite -->
+
+	</footer>
+	<!-- End Footer -->
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<span class="fas fa-angle-up"></span>
+		</span>
+	</div>
+	<!-- End Back to top -->
+
+<!--===============================================================================================-->	
+	<script src="{% static 'assets/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'assets/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'assets/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

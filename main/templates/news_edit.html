@@ -1,0 +1,157 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block headblock %}
+
+    <script src="{% static 'ckeditor4/ckeditor/ckeditor.js' %}"></script>
+
+{% endblock %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Edit News<br><small><p><a href="/panel/news/add">Add News</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>News</li>
+    <li><a href="">Edit/{{pk}}</a></li>
+</ul>
+<!-- END Header -->
+
+
+<!-- Page content -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Edit</strong> News</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'edit_news' pk=news.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_title">Title</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{news.news_title}}" id="news_title" name="news_title" class="form-control" placeholder="News title">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_date">Date</label>
+                    <div class="col-md-6">
+                        <input type="date" value="{{news_date}}" id="news_date" name="news_date" class="form-control" placeholder="News date">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_writer">Writer</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{news.news_writer}}" id="news_writer" name="news_writer" class="form-control" placeholder="News writer">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_catagory">Catagory</label>
+                    <div class="col-md-6">
+                        <select id="news_catagory" name="news_catagory" class="form-control" size="1">
+                            {% for subcatagory in subcatagory %}
+                                {% if subcatagory.pk == news.news_catagoryid %}
+                                    {% for catagory in catagory %}
+                                        {% if catagory.pk == subcatagory.catagoryid %}
+                                        <option value="{{news.news_catagoryid}}">{{catagory.catagory}} | {{subcatagory.subcatagory}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% for subcatagory in subcatagory %}
+                                {% if subcatagory.pk != news.news_catagoryid %}
+                                    {% for catagory in catagory %}
+                                        {% if catagory.pk == subcatagory.catagoryid %}
+                                        <option value="{{subcatagory.pk}}">{{catagory.catagory}} | {{subcatagory.subcatagory}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_summary">Summary</label>
+                    <div class="col-md-11">
+                        <textarea id="news_summary" name="news_summary" rows="4" class="form-control" placeholder="News summary">{{news.news_summary}}</textarea>
+                    </div>
+                </div>
+
+                <script>
+                    CKEDITOR.replace ('news_summary');
+                </script>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_detail">Detail</label>
+                    <div class="col-md-11">
+                        <textarea type="text" id="news_detail" name="news_detail" rows="9" class="form-control" placeholder="News detail">{{news.news_detail}}</textarea>
+                    </div>
+                </div>
+
+                <script>
+                    CKEDITOR.replace ('news_detail');
+                </script>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_tags">Tags</label>
+                    <div class="col-md-11">
+                        <textarea id="news_tags" name="news_tags" rows="4" class="form-control" placeholder="Tags">{{news.news_tags}}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_image">Image</label>
+                    <div class="col-md-6">
+                        <img src="{{news.news_image.url}}" alt="News Image" height = "400px" width="600px">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_image">Change</label>
+                    <div class="col-md-6">
+                        <input type="file" id="news_image" name="news_image">
+                    </div>
+                </div>
+
+                <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-11">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Form Example with Blocks in the Grid -->
+</div>
+<!-- END Page Content -->
+
+{% endblock %}
+
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'js/pages/formsGeneral.js' %}"></script>
+<script>$(function(){ FormsGeneral.init(); });</script>
+
+{% endblock %}

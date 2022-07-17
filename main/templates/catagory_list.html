@@ -1,0 +1,59 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Catagory List<br><small>You can change or delete catagories here.<p><a href="/panel/catagory/add">Add Catagory</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Catagory</li>
+    <li><a href="">List</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Catagory</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for catagory in catagory %}
+                <tr>
+                    <td class="text-center">{{catagory.pk}}</td>
+                    <td>{{catagory.catagory}}</td>
+                    
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'catagory_edit' pk=catagory.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'delete_catagory' pk=catagory.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

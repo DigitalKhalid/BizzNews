@@ -1,0 +1,172 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block mainblock %}
+
+<!-- Feature post -->
+<section class="bg0">
+	<div class="row m-rl-0 justify-content-center">
+		{% for latest_news in latest_news %}
+		{% for subcatagory in subcatagory %}
+		{% if latest_news.news_catagoryid == subcatagory.pk %}
+		<div class="col-md-4 p-rl-1 p-b-2">
+			<div class="bg-img1 size-a-11 how1 pos-relative" style="background-image: url({{latest_news.news_image.url}})">
+				<a href="{% url 'news_detail' pk=latest_news.pk %}" class="dis-block how1-child1 trans-03"></a>
+
+				<div class="flex-col-e-s s-full p-rl-25 p-tb-18">
+					<a href="#" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+						{{subcatagory.subcatagory}}
+					</a>
+
+					<h3 class="how1-child2 m-t-14 m-b-10">
+						<a href="{% url 'news_detail' pk=latest_news.pk %}" class="f1-l-1 cl0 hov-cl10 trans-03 respon1">
+							{{latest_news.news_title}}
+						</a>
+					</h3>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+	</div>
+</section>
+<!-- Feature post -->
+
+<!-- Post -->
+<section class="bg0 p-t-60 p-b-40">
+{% for catagory in catagory %}
+{% for active_catid in active_catid %}
+{% if active_catid == catagory.pk %}
+	<div class="container">
+		<div class="how2 how2-cl2 flex-s-c">
+			<h3 class="f1-m-2 cl3 tab01-title">
+				{{catagory.catagory}}
+			</h3>
+		</div>
+	
+		<div class="row p-t-35">
+			{% for subcatagory in subcatagory %}
+			{% if subcatagory.catagoryid == catagory.pk %}
+			{% for news in news %}
+			{% if news.news_catagoryid == subcatagory.pk %}
+			<div class="col-sm-5 col-md-3">
+				<!-- Item latest -->	
+				<div class="m-b-45">
+					<a href="{% url 'news_detail' pk=news.pk %}" class="wrap-pic-w hov1 trans-03">
+						<img style="height:180px; width:250px" src={{news.news_image.url}} alt="IMG">
+					</a>
+	
+					<div class="p-t-16">
+						<h6 class="p-b-5">
+							<a href="" class="f1-m-3 cl2 hov-cl10 trans-03">
+								{{news.news_title}}
+							</a>
+						</h6>
+						<p>
+							{{news.news_summary|safe}}
+						</p>
+						
+						<span class="cl8">
+							<a href="" class="f1-s-4 cl8 hov-cl10 trans-03">
+								by {{news.news_writer}}
+							</a>
+	
+							<span class="f1-s-3 m-rl-3">
+								-
+							</span>
+	
+							<span class="f1-s-3">
+								{{news.news_date}}
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</section>
+<!-- End Post -->
+
+<!-- Subscribe -->
+<!-- <section class="bg0 p-t-60 p-b-40">
+	<div class="container">
+		<div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-55">
+			<h5 class="f1-m-5 cl0 p-b-10">
+				Subscribe
+			</h5>
+
+			<p class="f1-s-1 cl0 p-b-25">
+				Get all latest content delivered to your email a few times a month.
+			</p>
+
+			<form class="size-a-9 pos-relative">
+				<input class="s-full f1-m-6 cl6 plh9 p-l-20 p-r-55" type="email" name="email" placeholder="Email">
+
+				<button class="size-a-10 flex-c-c ab-t-r fs-16 cl9 hov-cl10 trans-03">
+					<i class="fa fa-arrow-right"></i>
+				</button>
+			</form>
+		</div>
+	</div>
+</section> -->
+
+<!-- Latest News -->
+<section class="bg0 p-t-60 p-b-40">
+<div class="container">
+	<div class="how2 how2-cl4 flex-s-c">
+		<h3 class="f1-m-2 cl3 tab01-title">
+			Latest News
+		</h3>
+	</div>
+
+	<div class="row p-t-35">
+
+		{% for news in latest_news2 %}
+
+		<div class="col-sm-6 col-md-4">
+			<!-- Item latest -->	
+			<div class="m-b-45">
+				<a href="{% url 'news_detail' pk=news.pk %}" class="wrap-pic-w hov1 trans-03">
+					<img style="height:200px; width:340px" src={{news.news_image.url}} alt="IMG">
+				</a>
+
+				<div class="p-t-16">
+					<h5 class="p-b-5">
+						<a href="" class="f1-m-3 cl2 hov-cl10 trans-03">
+							{{news.news_title}}
+						</a>
+					</h5>
+					<p>
+						{{news.news_summary|safe}}
+					</p>
+					
+					<span class="cl8">
+						<a href="" class="f1-s-4 cl8 hov-cl10 trans-03">
+							by {{news.news_writer}}
+						</a>
+
+						<span class="f1-s-3 m-rl-3">
+							-
+						</span>
+
+						<span class="f1-s-3">
+							{{news.news_date}}
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+</section>
+<!-- End Latest News -->
+{% endblock %}

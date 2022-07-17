@@ -1,0 +1,66 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Sub-Catagory List<br><small>You can change or delete sub-catagories here.<p><a href="/panel/subcatagory/add">Add Sub-Catagory</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Sub-Catagory</li>
+    <li><a href="">List</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Sub-Catagory</th>
+                    <th class="text-center">Catagory</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for subcatagory in subcatagory %}
+                <tr>
+                    <td class="text-center">{{subcatagory.pk}}</td>
+                    <td>{{subcatagory.subcatagory}}</td>
+
+                    {% for catagory in catagory %}
+                        {% if catagory.pk == subcatagory.catagoryid %}
+                        <td>{{catagory.catagory}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'subcatagory_edit' pk=subcatagory.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'delete_subcatagory' pk=subcatagory.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Edit Catagory<br><small><p><a href="/panel/catagory/add">Add Catagory</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Catagory</li>
+    <li><a href="">Edit</a></li>
+</ul>
+<!-- END Header -->
+
+
+<!-- Page content -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Edit</strong> Catagory</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'catagory_edit' pk=catagory.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="catagory_name">Catagory</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{catagory.catagory}}" id="catagory_name" name="catagory_name" class="form-control" placeholder="Catagory name">
+                    </div>
+                </div>
+
+                <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Form Example with Blocks in the Grid -->
+</div>
+<!-- END Page Content -->
+
+{% endblock %}
+
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'js/pages/formsGeneral.js' %}"></script>
+<script>$(function(){ FormsGeneral.init(); });</script>
+
+{% endblock %}

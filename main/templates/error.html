@@ -1,0 +1,33 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Error<br><small></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>News</li>
+    <li><a href="">Error</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <p>{{error}}</p>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}
