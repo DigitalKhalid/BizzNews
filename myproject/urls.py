@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('news.urls')),
     path('', include('catagory.urls')),
     path('', include('subcatagory.urls')),
+    path('', include('contactform.urls')),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

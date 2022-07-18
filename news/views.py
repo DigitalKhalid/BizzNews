@@ -6,11 +6,13 @@ import os
 from django.contrib import messages
 from subcatagory.models import Subcatagory
 from bizzsupport import error
+from contactform.models import Contacts
 
 site_name = site_name + ' | News'
 news = News.objects.all
 subcatagory = Subcatagory.objects.all
 catagory = Catagory.objects.all
+unread_contacts = Contacts.objects.filter(readstatus=False).count()
 
 # News Detail
 def news_detail(request, pk):
@@ -42,6 +44,7 @@ def news_detail(request, pk):
         'site_contact':site_contact,
         'site_icon':site_icon,
         'site_logo':site_logo,
+        'user_name':request.user.username,
         'catagory':catagory,
         'subcatagory':subcatagory,
         'popular_news':popular_news,
@@ -62,6 +65,8 @@ def news_list(request):
         'subcatagory':subcatagory,
         'site_icon':site_icon,
         'site_logo':site_logo,
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
         })
 
 # Add News
@@ -85,6 +90,8 @@ def add_news(request):
         'subcatagory':subcatagory,
         'site_icon':site_icon,
         'site_logo':site_logo,
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
         })
 
 # Delete News
@@ -151,7 +158,9 @@ def edit_news(request, pk):
         'news':news, 
         'news_date':news_date, 
         'catagory':catagory, 
-        'subcatagory':subcatagory
+        'subcatagory':subcatagory,
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
         })
 
 # Save News

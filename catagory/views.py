@@ -5,8 +5,10 @@ from main.views import site_name
 from bizzsupport import error
 from news.models import News
 from subcatagory.models import Subcatagory
+from contactform.models import Contacts
 
 site_name = site_name + ' | Catagories'
+unread_contacts = Contacts.objects.filter(readstatus=False).count()
 
 # Catagory List
 def catagory_list(request):
@@ -16,7 +18,7 @@ def catagory_list(request):
     # Login Check End
     
     catagory = Catagory.objects.all
-    return render(request, 'catagory_list.html', {'site_name':site_name, 'catagory' : catagory})
+    return render(request, 'catagory_list.html', {'site_name':site_name, 'catagory' : catagory, 'unread_contacts':unread_contacts, 'user_name':request.user.username,})
 
 # Catagory Add
 def add_catagory(request):
@@ -33,7 +35,7 @@ def add_catagory(request):
         else:
             return redirect('catagory_list')
 
-    return render(request, 'catagory_add.html',{'site_name':site_name})
+    return render(request, 'catagory_add.html',{'site_name':site_name, 'unread_contacts':unread_contacts,'user_name':request.user.username,})
 
 # Catagory Delete
 def delete_catagory(request, pk):
@@ -66,7 +68,7 @@ def catagory_edit(request, pk):
         else:
             return redirect('catagory_list')
 
-    return render(request, 'catagory_edit.html', {'site_name':site_name, 'catagory':catagory})
+    return render(request, 'catagory_edit.html', {'site_name':site_name, 'catagory':catagory, 'unread_contacts':unread_contacts,'user_name':request.user.username,})
 
 # Catagory Save
 def save_catagory(request, type= 'new' or 'edit', pk=None):

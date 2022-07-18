@@ -5,6 +5,7 @@ from catagory.models import Catagory
 from subcatagory.models import Subcatagory
 from django.contrib.auth import authenticate, login, logout, models
 import os
+from contactform.models import Contacts
 
 class siteinfo:
     def __init__(self):
@@ -44,6 +45,7 @@ subcatagory = Subcatagory.objects.all()
 latest_news = News.objects.all().order_by('-news_date')[:3]
 latest_news2 = News.objects.all().order_by('-news_date')[:6]
 popular_news = News.objects.all().order_by('-news_views')[:5]
+unread_contacts = Contacts.objects.filter(readstatus=False).count()
 
 # Get Active Catagory IDs
 news_subcatagoryid = []
@@ -134,6 +136,7 @@ def panel(request):
         'user_last_name':user_last_name,
         'user_email':user_email,
         'user_full_name':user_full_name,
+        'unread_contacts':unread_contacts,
         })
 
 # Login
@@ -184,6 +187,8 @@ def site_settings(request):
         'site_address':site_address,
         'site_icon':site_icon,
         'site_logo':site_logo,
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
         }
     )
 
@@ -275,3 +280,24 @@ def user_settings(request, username):
             print('password does not match')
     
     return redirect('panel')
+
+
+def contact(request):
+
+    return render(request, 'contact.html', {
+        'site_name':site_name + ' | Contact', 
+        'site_about':site_about, 
+        'site_facebook':site_facebook, 
+        'site_twiter':site_twiter, 
+        'site_youtube':site_youtube,
+        'site_email':site_email,
+        'site_contact':site_contact,
+        'site_address':site_address,
+        'site_icon':site_icon,
+        'site_logo':site_logo,
+        'news':news,
+        'catagory':catagory,
+        'active_catid':active_catid,
+        'subcatagory':subcatagory,
+        'popular_news':popular_news,
+        })

@@ -5,8 +5,10 @@ from django.contrib import messages
 from catagory.models import Catagory
 from main.views import site_name
 from bizzsupport import error
+from contactform.models import Contacts
 
 site_name = site_name + ' | Sub-Catagories'
+unread_contacts = Contacts.objects.filter(readstatus=False).count()
 
 # Subcatagory List
 def subcatagory_list(request):
@@ -17,7 +19,7 @@ def subcatagory_list(request):
 
     subcatagory = Subcatagory.objects.all
     catagory = Catagory.objects.all
-    return render(request, 'subcatagory_list.html', {'site_name':site_name, 'subcatagory' : subcatagory, 'catagory':catagory})
+    return render(request, 'subcatagory_list.html', {'site_name':site_name, 'user_name':request.user.username,'subcatagory' : subcatagory, 'catagory':catagory, 'unread_contacts':unread_contacts,})
 
 # Subcatagory Add
 def add_subcatagory(request):
@@ -36,7 +38,7 @@ def add_subcatagory(request):
         else:
             return redirect('subcatagory_list')
 
-    return render(request, 'subcatagory_add.html', {'site_name':site_name, 'catagory' : catagory})
+    return render(request, 'subcatagory_add.html', {'site_name':site_name, 'user_name':request.user.username,'catagory' : catagory, 'unread_contacts':unread_contacts,})
 
 # Subcatagory Delete
 def delete_subcatagory(request, pk):
@@ -74,7 +76,7 @@ def subcatagory_edit(request, pk):
         else:
             return redirect('subcatagory_list')
 
-    return render(request, 'subcatagory_edit.html', {'site_name':site_name, 'pk':pk, 'subcatagory':subcatagory, 'catagory':catagory})
+    return render(request, 'subcatagory_edit.html', {'site_name':site_name, 'user_name':request.user.username,'pk':pk, 'subcatagory':subcatagory, 'catagory':catagory, 'unread_contacts':unread_contacts,})
 
 # Subcatagory Save
 def save_subcatagory(request, type = 'new' or 'edit', pk=None):

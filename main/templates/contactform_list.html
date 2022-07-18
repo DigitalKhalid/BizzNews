@@ -1,0 +1,70 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Contacts List<br><small>You can read or delete messages here.</small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Contacts</li>
+    <li><a href="">Messages</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for contacts in contacts %}
+                <tr>
+                    {% if contacts.readstatus == False %}
+                    <td><strong>{{contacts.date}}</strong></td>
+                    <td><strong>{{contacts.name}}</strong></td>
+                    <td><strong>{{contacts.email}}</strong></td>
+                    <td><strong>{{contacts.message}}</strong></td>
+                    {% else %}
+                    <td>{{contacts.date}}</td>
+                    <td>{{contacts.name}}</td>
+                    <td>{{contacts.email}}</td>
+                    <td>{{contacts.message}}</td>
+                    {% endif %}
+
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'change_readstatus' pk=contacts.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Change Status</a>
+                            <a href="{% url 'contactform_delete' pk=contacts.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

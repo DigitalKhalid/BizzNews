@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from asyncio.windows_events import NULL
 from django.db import models
 
 class Main(models.Model):

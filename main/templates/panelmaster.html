@@ -139,13 +139,38 @@
                                     <a href="/panel/" class=" active"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                                 </li>
                             
-                                <!-- Site Settings -->
+                                <!-- Settings -->
                                 <li class="sidebar-header">
-                                    <span class="sidebar-header-options clearfix"><a href="/panel/settings" data-toggle="tooltip" title="Quick Settings"><i class="gi gi-settings"></i></a></span>
-                                    <span class="sidebar-header-title">Site Settings</span>
+                                    <span class="sidebar-header-options clearfix"></span>
+                                    <span class="sidebar-header-title">Settings</span>
+                                </li>
+
+                                <li>
+                                    <a href="/panel/settings"><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span>Site Settings</span></a>
+                                </li>
+
+                                <!-- Contacts -->
+                                <li class="sidebar-header">
+                                    <span class="sidebar-header-options clearfix"></span>
+                                    <span class="sidebar-header-title">Contacts</span>
+                                </li>
+
+                                <li>
+                                    <a href="/contact/list"><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i>
+                                    {% if unread_contacts == 0 %}
+                                    <span>Messages</span></a>
+                                    {% else %}
+                                    <span>Messages</span>
+                                    <span class="label label-info">{{unread_contacts}}</span></a>
+                                    {% endif %}
                                 </li>
 
                                 <!-- Catagory -->
+                                <li class="sidebar-header">
+                                    <span class="sidebar-header-options clearfix"></span>
+                                    <span class="sidebar-header-title">News</span>
+                                </li>
+
                                 <li>
                                     <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Catagories</span></a>
                                     <ul>
