@@ -147,6 +147,11 @@
 
 {% block footerblock %}
 
+<script>
+    var element = document.getElementById('site_settings');
+    element.classList.add('active')
+</script>
+
 <!-- Load and execute javascript code used only in this page -->
 <script src="{%static 'js/pages/formsGeneral.js' %}"></script>
 <script>$(function(){ FormsGeneral.init(); });</script>

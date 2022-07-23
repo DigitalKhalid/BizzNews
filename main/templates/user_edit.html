@@ -1,0 +1,140 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block headblock %}
+
+    <script src="{% static 'ckeditor4/ckeditor/ckeditor.js' %}"></script>
+
+{% endblock %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Edit User Information<br><small><p><a href="/panel/users/list">User List</a></p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>User</li>
+    <li><a href="">Edit/ {{user_name}}</a></li>
+</ul>
+<!-- END Header -->
+
+
+<!-- Page content -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Edit</strong> User</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'user_edit' pk=usermanager.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_firstname">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{usermanager.user_firstname}}" id="user_firstname" name="user_firstname" class="form-control" placeholder="First Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_lastname">Last Name</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{usermanager.user_lastname}}" id="user_lastname" name="user_lastname" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_email">Email</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{usermanager.user_email}}" id="user_email" name="user_email" class="form-control" placeholder="Email Address">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_biography">Biography</label>
+                    <div class="col-md-11">
+                        <textarea id="user_biography" name="user_biography" rows="6" class="form-control" placeholder="About you">{{usermanager.user_biography}}</textarea>
+                    </div>
+                </div>
+
+                <script>
+                    CKEDITOR.replace ('user_biography');
+                </script>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_address">Address</label>
+                    <div class="col-md-11">
+                        <textarea type="text" id="user_address" name="user_address" rows="3" class="form-control" placeholder="Postal Address">{{usermanager.user_address}}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_contact">Contact</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{usermanager.user_contact}}" id="user_contact" name="user_contact" class="form-control" placeholder="Contact No.">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="news_catagory">Status</label>
+                    <div class="col-md-6">
+                        <select id="user_status" name="user_status" class="form-control" size="1">
+                            <option value="{{usermanager.user_status}}">{{usermanager.user_status}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_image">Image</label>
+                    <div class="col-md-6">
+                        <img src="{{usermanager.user_image.url}}" alt="User Image" height = "300px" width="300px">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="user_image">Change</label>
+                    <div class="col-md-6">
+                        <input type="file" id="user_image" name="user_image">
+                    </div>
+                </div>
+
+                <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-11">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Form Example with Blocks in the Grid -->
+</div>
+<!-- END Page Content -->
+
+{% endblock %}
+
+
+{% block footerblock %}
+
+<script>
+    var element = document.getElementById('user_list');
+    element.classList.add('active')
+</script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'js/pages/formsGeneral.js' %}"></script>
+<script>$(function(){ FormsGeneral.init(); });</script>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>User List<br><small>You can change user infor or delete users here.<p><a href="#">Add User</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Users</li>
+    <li><a href="">List</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Content -->
+<div class="block full">
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Username</th>
+                    <th class="text-center">Image</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Posts</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for usermanager in usermanager %}
+                <tr>
+                    <td class="text-center">{{usermanager.username}}</td>
+                    <td class="text-center"><img style="display: inline-block; width: 50px; height: 50px" src="{{usermanager.user_image.url}}" alt="User Image" class="img-circle"></td>
+                    <td>{{usermanager.user_firstname}}</td>
+                    <td>{{usermanager.user_lastname}}</td>
+                    <td>{{usermanager.user_email}}</td>
+                    <td>{{usermanager.user_status}}</td>
+                    <td><span class="label label-info">{{usermanager.user_post}}</span></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'user_edit' pk=usermanager.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Content -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<script>
+    var element = document.getElementById('user_list');
+    element.classList.add('active')
+</script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

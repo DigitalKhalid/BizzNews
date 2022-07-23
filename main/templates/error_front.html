@@ -1,0 +1,40 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block mainblock %}
+<div style="height:200px;" class="row align-content-center">
+    <div class="col-md-12">
+            <!-- Header -->
+            <div class="content-header">
+                <div class="header-section">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>
+                                <i class="fa fa-exclamation-circle fa-2x"> Error</i>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Header -->
+
+            <!-- Content -->
+            <div class="block full">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>{{error_message}}</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- END Content -->
+    </div>
+</div>
+{% endblock %}
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

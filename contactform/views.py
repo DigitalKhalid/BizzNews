@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from .models import Contacts
 from main.views import site_name, site_icon, site_logo
+from usermanager.models import Usermanager
 
 # Submit Contact Form
 def contactform_submit(request):
@@ -43,6 +44,7 @@ def contactform_list(request):
         'site_logo':site_logo,
         'contacts':contacts,
         'unread_contacts':unread_contacts,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'catagory',
     'subcatagory',
     'contactform',
+    'usermanager'
 ]
 
 MIDDLEWARE = [

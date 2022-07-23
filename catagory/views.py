@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from catagory.models import Catagory
 from django.contrib import messages
-from main.views import site_name
+from main.views import site_name, site_icon
 from bizzsupport import error
 from news.models import News
 from subcatagory.models import Subcatagory
 from contactform.models import Contacts
+from usermanager.models import Usermanager
 
 site_name = site_name + ' | Catagories'
 unread_contacts = Contacts.objects.filter(readstatus=False).count()
@@ -18,7 +19,14 @@ def catagory_list(request):
     # Login Check End
     
     catagory = Catagory.objects.all
-    return render(request, 'catagory_list.html', {'site_name':site_name, 'catagory' : catagory, 'unread_contacts':unread_contacts, 'user_name':request.user.username,})
+    return render(request, 'catagory_list.html', {
+        'site_name':site_name, 
+        'catagory' : catagory, 
+        'site_icon':site_icon,
+        'unread_contacts':unread_contacts, 
+        'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Catagory Add
 def add_catagory(request):
@@ -35,7 +43,13 @@ def add_catagory(request):
         else:
             return redirect('catagory_list')
 
-    return render(request, 'catagory_add.html',{'site_name':site_name, 'unread_contacts':unread_contacts,'user_name':request.user.username,})
+    return render(request, 'catagory_add.html',{
+        'site_name':site_name, 
+        'site_icon':site_icon,
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Catagory Delete
 def delete_catagory(request, pk):
@@ -68,7 +82,14 @@ def catagory_edit(request, pk):
         else:
             return redirect('catagory_list')
 
-    return render(request, 'catagory_edit.html', {'site_name':site_name, 'catagory':catagory, 'unread_contacts':unread_contacts,'user_name':request.user.username,})
+    return render(request, 'catagory_edit.html', {
+        'site_name':site_name, 
+        'site_icon':site_icon,
+        'catagory':catagory, 
+        'unread_contacts':unread_contacts,
+        'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Catagory Save
 def save_catagory(request, type= 'new' or 'edit', pk=None):

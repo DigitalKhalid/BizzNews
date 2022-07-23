@@ -3,9 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from subcatagory.models import Subcatagory
 from django.contrib import messages
 from catagory.models import Catagory
-from main.views import site_name
+from main.views import site_name, site_icon
 from bizzsupport import error
 from contactform.models import Contacts
+from usermanager.models import Usermanager
 
 site_name = site_name + ' | Sub-Catagories'
 unread_contacts = Contacts.objects.filter(readstatus=False).count()
@@ -19,7 +20,15 @@ def subcatagory_list(request):
 
     subcatagory = Subcatagory.objects.all
     catagory = Catagory.objects.all
-    return render(request, 'subcatagory_list.html', {'site_name':site_name, 'user_name':request.user.username,'subcatagory' : subcatagory, 'catagory':catagory, 'unread_contacts':unread_contacts,})
+    return render(request, 'subcatagory_list.html', {
+        'site_name':site_name, 
+        'site_icon':site_icon,
+        'user_name':request.user.username,
+        'subcatagory' : subcatagory, 
+        'catagory':catagory, 
+        'unread_contacts':unread_contacts,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Subcatagory Add
 def add_subcatagory(request):
@@ -38,7 +47,14 @@ def add_subcatagory(request):
         else:
             return redirect('subcatagory_list')
 
-    return render(request, 'subcatagory_add.html', {'site_name':site_name, 'user_name':request.user.username,'catagory' : catagory, 'unread_contacts':unread_contacts,})
+    return render(request, 'subcatagory_add.html', {
+        'site_name':site_name, 
+        'site_icon':site_icon,
+        'user_name':request.user.username,
+        'catagory' : catagory, 
+        'unread_contacts':unread_contacts,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Subcatagory Delete
 def delete_subcatagory(request, pk):
@@ -76,7 +92,16 @@ def subcatagory_edit(request, pk):
         else:
             return redirect('subcatagory_list')
 
-    return render(request, 'subcatagory_edit.html', {'site_name':site_name, 'user_name':request.user.username,'pk':pk, 'subcatagory':subcatagory, 'catagory':catagory, 'unread_contacts':unread_contacts,})
+    return render(request, 'subcatagory_edit.html', {
+        'site_name':site_name, 
+        'site_icon':site_icon,
+        'user_name':request.user.username,
+        'pk':pk, 
+        'subcatagory':subcatagory,
+        'catagory':catagory, 
+        'unread_contacts':unread_contacts,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
+        })
 
 # Subcatagory Save
 def save_subcatagory(request, type = 'new' or 'edit', pk=None):

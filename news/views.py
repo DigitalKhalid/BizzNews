@@ -1,3 +1,4 @@
+import imp
 from django.shortcuts import render, get_object_or_404, redirect
 from catagory.models import Catagory
 from news.models import News
@@ -7,6 +8,7 @@ from django.contrib import messages
 from subcatagory.models import Subcatagory
 from bizzsupport import error
 from contactform.models import Contacts
+from usermanager.models import Usermanager
 
 site_name = site_name + ' | News'
 news = News.objects.all
@@ -49,6 +51,7 @@ def news_detail(request, pk):
         'subcatagory':subcatagory,
         'popular_news':popular_news,
         'tags':tags,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 # News List
@@ -67,6 +70,7 @@ def news_list(request):
         'site_logo':site_logo,
         'unread_contacts':unread_contacts,
         'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 # Add News
@@ -92,6 +96,7 @@ def add_news(request):
         'site_logo':site_logo,
         'unread_contacts':unread_contacts,
         'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 # Delete News
@@ -161,6 +166,7 @@ def edit_news(request, pk):
         'subcatagory':subcatagory,
         'unread_contacts':unread_contacts,
         'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 # Save News

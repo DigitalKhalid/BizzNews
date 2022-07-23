@@ -63,6 +63,11 @@
 
 {% block footerblock %}
 
+<script>
+    var element = document.getElementById('messages');
+    element.classList.add('active')
+</script>
+
 <!-- Load and execute javascript code used only in this page -->
 <script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>

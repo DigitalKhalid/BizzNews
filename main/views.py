@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from .models import Main
 from news.models import News
 from catagory.models import Catagory
 from subcatagory.models import Subcatagory
-from django.contrib.auth import authenticate, login, logout, models
+from django.contrib.auth import authenticate, login, models
 import os
 from contactform.models import Contacts
+from usermanager.models import Usermanager
 
 class siteinfo:
     def __init__(self):
@@ -137,10 +138,13 @@ def panel(request):
         'user_email':user_email,
         'user_full_name':user_full_name,
         'unread_contacts':unread_contacts,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
 # Login
 def mylogin(request):
+    global error_message
+    error_message = ''
     if request.method == 'POST':
         user_name = request.POST.get('user_name')
         password = request.POST.get('user_password')
@@ -152,7 +156,15 @@ def mylogin(request):
                 login(request, user)
                 return redirect('panel')
 
-    return render(request, 'login.html', {'site_name':site_name + ' | Login'})
+            else:
+                error_message = 'Incorrect user name or password.'
+                return error_page(request, error_message)
+
+        else:
+            error_message = 'Incorrect user name or password.'
+            return error_page(request, error_message)
+
+    return render(request, 'login.html', {'site_name':site_name + ' | Login', 'site_icon':site_icon})
 
 # Site Settings
 def site_settings(request):
@@ -189,6 +201,7 @@ def site_settings(request):
         'site_logo':site_logo,
         'unread_contacts':unread_contacts,
         'user_name':request.user.username,
+        'activeuser':Usermanager.objects.filter(username=request.user.username)
         }
     )
 
@@ -257,33 +270,123 @@ def save_settings(request):
 
     write_data.save()
 
-
+# Update User Settings & Password
 def user_settings(request, username):
     if request.method == 'POST':
-        print('user settings')
         useremail = request.POST.get('user_email')
         userfirstname = request.POST.get('user_first_name')
         userlastname = request.POST.get('user_last_name')
         userpassword = request.POST.get('user_password')
         userrepassword = request.POST.get('user_repassword')
 
-        if userpassword == userrepassword:
-            write_data = models.User.objects.get(username=username)
-            write_data.email = useremail
-            write_data.first_name = userfirstname 
-            write_data.last_name = userlastname
-            write_data.password = userpassword
+        write_data = models.User.objects.get(username=username)
+        write_data.email = useremail
+        write_data.first_name = userfirstname 
+        write_data.last_name = userlastname
+
+        if userpassword != '':
+            if userpassword == userrepassword:
+
+                for i in userpassword:
+                    strength = 0
+                    if i > '0' and i < '9':
+                        strength =+ 1
+                    if i > 'A' and i < 'Z':
+                        strength =+ 1
+                    if i > 'a' and i < 'z':
+                        strength =+ 1
+                    if i > '!' and i < '(':
+                        strength =+ 1
+
+                if strength == 4:
+                    print('Strong Password')
+                elif strength == 3:
+                    print('Moderate Password')
+                else:
+                    print('Week Password')
+
+                write_data.set_password(userpassword)
+            else:
+                print('password does not match')
         
-            write_data.save()
-            return redirect('panel')
-        else:
-            print('password does not match')
+        write_data.save()
+
+        return redirect('panel')
     
     return redirect('panel')
 
+# Register New User
+def user_register(request):
+    if request.method == 'POST':
+        username = request.POST.get('user_name')
+        useremail = request.POST.get('user_email')
+        userfirstname = request.POST.get('user_firstname')
+        userlastname = request.POST.get('user_lastname')
+        userpassword = request.POST.get('user_password')
+        userrepassword = request.POST.get('user_repassword')
+        userterms = request.POST.get('user_terms')
 
+        if userterms == 'on':
+            if userpassword != '':
+                if userpassword == userrepassword:
+                    for i in userpassword:
+                        strength = 0
+                        if i > '0' and i < '9':
+                            strength =+ 1
+                        if i > 'A' and i < 'Z':
+                            strength =+ 1
+                        if i > 'a' and i < 'z':
+                            strength =+ 1
+                        if i > '!' and i < '(':
+                            strength =+ 1
+
+                    if strength == 4:
+                        print('Strong Password')
+                    elif strength == 3:
+                        print('Moderate Password')
+                    else:
+                        print('Week Password')
+
+                        available_users = models.User.objects.filter(username = username).count()
+                        
+                        if available_users > 0:
+                            error_message = 'User name not available'
+                            return error_page(request, error_message)
+                        
+                        else:
+                            write_data = models.User.objects.create_user(
+                                username = username,
+                                email = useremail,
+                                password = userpassword,
+                                first_name = userfirstname,
+                                last_name = userlastname,
+                                )
+                            
+                            write_data.save()
+
+                            write_Usermanager = Usermanager(
+                                username = username,
+                                user_firstname = userfirstname,
+                                user_lastname = userlastname,
+                                user_email = useremail,
+                                )
+
+                            write_Usermanager.save()
+                            
+                            return redirect('mylogin')
+
+                else:
+                    error_message = 'Password does not match. Please enter same password in both fields.'
+                    return error_page(request, error_message)
+        else:
+            error_message = 'Please accept the terms.'
+            return error_page(request, error_message)
+                        
+    
+    return redirect('mylogin')
+
+# Contact Form
 def contact(request):
-
     return render(request, 'contact.html', {
         'site_name':site_name + ' | Contact', 
         'site_about':site_about, 
@@ -301,3 +404,27 @@ def contact(request):
         'subcatagory':subcatagory,
         'popular_news':popular_news,
         })
+
+
+def error_page(request, error_message):
+        return render(request, 'error_front.html', {
+        'site_name':site_name + ' | error', 
+        'site_about':site_about, 
+        'site_facebook':site_facebook, 
+        'site_twiter':site_twiter, 
+        'site_youtube':site_youtube,
+        'site_email':site_email,
+        'site_contact':site_contact,
+        'site_address':site_address,
+        'site_icon':site_icon,
+        'site_logo':site_logo,
+        'news':news,
+        'catagory':catagory,
+        'active_catid':active_catid,
+        'subcatagory':subcatagory,
+        'latest_news':latest_news,
+        'latest_news2':latest_news2,
+        'popular_news':popular_news,
+        'error_message':error_message,
+        }
+    )

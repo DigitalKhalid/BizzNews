@@ -90,6 +90,11 @@
 
 {% block footerblock %}
 
+<script>
+    var element = document.getElementById('dashboard');
+    element.classList.add('active')
+</script>
+
 <!-- Load and execute javascript code used only in this page -->
 <script src="{% static 'panel/js/pages/index.js' %}"></script>
 <script>$(function(){ Index.init(); });</script>

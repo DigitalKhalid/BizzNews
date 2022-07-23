@@ -75,11 +75,10 @@ var Login = function() {
                     e.closest('.help-block').remove();
                 },
                 rules: {
-                    'login-email': {
+                    'user_name': {
                         required: true,
-                        email: true
                     },
-                    'login-password': {
+                    'user_password': {
                         required: true,
                         minlength: 5
                     }
@@ -139,50 +138,44 @@ var Login = function() {
                     }
                 },
                 rules: {
-                    'register-firstname': {
+                    'user_name': {
                         required: true,
-                        minlength: 2
+                        minlength: 2,
+                        equalTo : '#existing_user'
                     },
-                    'register-lastname': {
-                        required: true,
-                        minlength: 2
-                    },
-                    'register-email': {
+                    'user_email': {
                         required: true,
                         email: true
                     },
-                    'register-password': {
+                    'user_password': {
                         required: true,
                         minlength: 5
                     },
-                    'register-password-verify': {
+                    'user_repassword': {
                         required: true,
-                        equalTo: '#register-password'
+                        equalTo: '#user_password'
                     },
-                    'register-terms': {
+                    'user_terms': {
                         required: true
                     }
                 },
                 messages: {
-                    'register-firstname': {
-                        required: 'Please enter your firstname',
-                        minlength: 'Please enter your firstname'
+                    'user_name': {
+                        required: 'Please enter your user name',
+                        minlength: 'Please enter your user name',
+                        equalTo: 'User name already exist. Please try another one.'
                     },
-                    'register-lastname': {
-                        required: 'Please enter your lastname',
-                        minlength: 'Please enter your lastname'
-                    },
-                    'register-email': 'Please enter a valid email address',
-                    'register-password': {
+                    'user_email': 'Please enter a valid email address',
+                    'user_password': {
                         required: 'Please provide a password',
                         minlength: 'Your password must be at least 5 characters long'
                     },
-                    'register-password-verify': {
+                    'user_repassword': {
                         required: 'Please provide a password',
                         minlength: 'Your password must be at least 5 characters long',
                         equalTo: 'Please enter the same password as above'
                     },
-                    'register-terms': {
+                    'user_terms': {
                         required: 'Please accept the terms!'
                     }
                 }

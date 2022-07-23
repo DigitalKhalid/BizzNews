@@ -52,6 +52,14 @@
 
 {% block footerblock %}
 
+<script>
+    var element = document.getElementById('catagory');
+    element.classList.add('active')
+
+    var element = document.getElementById('catagory_list');
+    element.classList.add('active')
+</script>
+
 <!-- Load and execute javascript code used only in this page -->
 <script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
 <script>$(function(){ TablesDatatables.init(); });</script>
