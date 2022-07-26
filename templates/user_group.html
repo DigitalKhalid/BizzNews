@@ -1,0 +1,103 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Groups<br><small>You can add, change or delete groups here.</small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Users</li>
+    <li><a href="">Groups</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Add Groups -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Add</strong> Group</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'user_group_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="group_name">Group</label>
+                    <div class="col-md-4">
+                        <input type="text" id="group_name" name="group_name" class="form-control" placeholder="Group name" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Add</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Add Groups -->
+
+<!-- Group List -->
+<div class="block full">
+    <!-- Basic Form Elements Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+        </div>
+        <h2><strong>Group</strong> List</h2>
+    </div>
+    <!-- END Form Elements Title -->
+
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Group Name</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for group in group %}
+                <tr>
+                    <td>{{group.name}}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'user_group_edit' pk=group.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'user_group_delete' pk=group.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Group List -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<script>
+    var element = document.getElementById('user_group');
+    element.classList.add('active')
+</script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

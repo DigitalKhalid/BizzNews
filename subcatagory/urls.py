@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from bizzsupport import error
+from bizzsole.bizzfunc import error
 
 urlpatterns = [
     path('panel/subcatagory/list', views.subcatagory_list, name='subcatagory_list'),

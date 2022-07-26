@@ -1,10 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from catagory.models import Catagory
 from django.contrib import messages
-from main.views import site_name, site_icon
-from bizzsupport import error
-from news.models import News
-from subcatagory.models import Subcatagory
+from bizzsole.siteinfo import site_name, site_icon
+from bizzsole.bizzfunc import error
 from contactform.models import Contacts
 from usermanager.models import Usermanager
 

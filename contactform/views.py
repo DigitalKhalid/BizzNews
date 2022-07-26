@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from .models import Contacts
-from main.views import site_name, site_icon, site_logo
+from bizzsole.siteinfo import site_name, site_icon, site_logo
 from usermanager.models import Usermanager
+from bizzsole.bizzfunc import error_front
 
 # Submit Contact Form
 def contactform_submit(request):
@@ -23,7 +24,8 @@ def contactform_submit(request):
             send_confirmation = 'Your message has been received. Thank you for contact us.'
 
         else:
-            send_confirmation = 'All fields are required.'
+            error_message = 'All fields are required.'
+            return error_front(request, error_message)
 
     return redirect('contact')
 

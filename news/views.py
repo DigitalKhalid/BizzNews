@@ -1,12 +1,11 @@
-import imp
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from catagory.models import Catagory
 from news.models import News
-from main.views import site_name, site_about, site_contact, site_facebook, site_email, site_twiter, site_youtube, site_address, site_icon, site_logo
+from bizzsole.siteinfo import site_name, site_about, site_contact, site_facebook, site_email, site_twiter, site_youtube, site_address, site_icon, site_logo
 import os
 from django.contrib import messages
 from subcatagory.models import Subcatagory
-from bizzsupport import error
+from bizzsole.bizzfunc import error
 from contactform.models import Contacts
 from usermanager.models import Usermanager
 

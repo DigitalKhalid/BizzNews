@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from bizzsupport import error
+from bizzsole.bizzfunc import error
 
 urlpatterns = [
     path('news/<pk>', views.news_detail, name='news_detail'),

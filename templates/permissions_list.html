@@ -1,0 +1,107 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Permissions<br><small>You can add, change or delete permissions here.</small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Users</li>
+    <li><a href="">Permissions</a></li>
+</ul>
+<!-- END Header -->
+
+<!-- Add Groups -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Add</strong> Permission</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'permissions_add' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="permission_name">Permission</label>
+                    <div class="col-md-4">
+                        <input type="text" id="permission_name" name="permission_name" class="form-control" placeholder="Permission name" required>
+                    </div>
+
+                    <div class="col-md-4">
+                        <input type="text" id="permission_codename" name="permission_codename" class="form-control" placeholder="Permission code name" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Add</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Add Groups -->
+
+<!-- Group List -->
+<div class="block full">
+    <!-- Basic Form Elements Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+        </div>
+        <h2><strong>Permission</strong> List</h2>
+    </div>
+    <!-- END Form Elements Title -->
+
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Permission Name</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for permissions in permissions %}
+                <tr>
+                    <td>{{permissions.content_type}} | {{permissions.name}}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a href="{% url 'permissions_edit' pk=permissions.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
+                            <a href="{% url 'permissions_delete' pk=permissions.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END Group List -->
+
+{% endblock %}
+
+{% block footerblock %}
+
+<script>
+    var element = document.getElementById('permissions');
+    element.classList.add('active')
+</script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{% static 'panel/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function(){ TablesDatatables.init(); });</script>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from bizzsupport import error_front
+from bizzsole.bizzfunc import error_front
 
 urlpatterns = [
     path('', views.home, name='home'),

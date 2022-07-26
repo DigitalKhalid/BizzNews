@@ -45,8 +45,10 @@
                     <td><span class="label label-info">{{usermanager.user_post}}</span></td>
                     <td class="text-center">
                         <div class="btn-group">
+                            <a href="{% url 'user_addpermission' pk=usermanager.pk %}" data-toggle="tooltip" title="Permissions" class="btn btn-xs btn-default">Permissions <i class="fa fa-low-vision"></i></a>
+                            <a href="{% url 'user_addgroup' pk=usermanager.pk %}" data-toggle="tooltip" title="Groups" class="btn btn-xs btn-default">Groups <i class="fa fa-users"></i></a>
                             <a href="{% url 'user_edit' pk=usermanager.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
-                            <a href="" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                            <a href="{% url 'user_delete' pk=usermanager.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
                         </div>
                     </td>
                 </tr>

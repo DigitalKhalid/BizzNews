@@ -7,37 +7,8 @@ from django.contrib.auth import authenticate, login, models
 import os
 from contactform.models import Contacts
 from usermanager.models import Usermanager
+from bizzsole.siteinfo import site_name, site_about, site_facebook, site_twiter, site_youtube, site_contact, site_email, site_address, site_icon, site_logo
 
-class siteinfo:
-    def __init__(self):
-        site_name = ''
-        site_about = ''
-
-    def get_siteinfo(self):
-        site = Main.objects.get(pk=1)
-        self.site_name = site.name
-        self.site_about = site.about
-        self.facebook = site.facebook
-        self.twiter = site.twiter
-        self.youtube = site.youtube
-        self.email = site.email
-        self.contact = site.contact
-        self.address = site.address
-        self.icon = site.icon
-        self.logo = site.logo
-
-site_info = siteinfo()
-site_info.get_siteinfo()
-site_name = site_info.site_name
-site_about = site_info.site_about
-site_facebook = site_info.facebook
-site_twiter = site_info.twiter
-site_youtube = site_info.youtube
-site_email = site_info.email
-site_contact = site_info.contact
-site_address = site_info.address
-site_icon = site_info.icon
-site_logo = site_info.logo
 
 # News
 news = News.objects.all().order_by('-news_date')
@@ -224,6 +195,13 @@ def save_settings(request):
     if sitename == '':
         error_message = 'Site name is required.'
         return error_message
+    
+    if sitefacebook == '':
+        sitefacebook = '#'
+    if sitetwiter == '':
+        sitetwiter = '#'
+    if siteyoutube == '':
+        siteyoutube = '#'
 
     write_data =  Main.objects.get(pk=1)
     write_data.name = sitename

@@ -14,7 +14,7 @@ class Usermanager(models.Model):
     user_biography = models.TextField()
     user_address = models.TextField()
     user_doj = models.DateTimeField(default=datetime.now)
-    user_image = models.ImageField(upload_to='pics', default='avatar.jpg')
+    user_image = models.ImageField(upload_to='pics', default='media/pics/avatar.jpg')
     user_status = models.CharField(max_length=8, choices=Userstatus.choices, default=Userstatus.Active)
     user_posts = models.IntegerField(default=0)
 

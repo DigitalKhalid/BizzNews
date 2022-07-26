@@ -1,0 +1,80 @@
+{% extends 'panelmaster.html' %}
+{% load static %}
+
+{% block mainblock %}
+<!-- Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Edit Permissions<br><small><p><a href="/panel/users/permissions">Add Permission</a> to add new one.</p></small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Users</li>
+    <li>Permissions</li>
+    <li><a href="">Edit/ {{permissions.content_type}} | {{permissions.name}}</a></li>
+</ul>
+<!-- END Header -->
+
+
+<!-- Page content -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                </div>
+                <h2><strong>Edit</strong> Permission</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{% url 'permissions_edit' pk=permissions.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="permission_name">Name</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{permissions.name}}" id="permission_name" name="permission_name" class="form-control" placeholder="Permission name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="permission_codename">Code Name</label>
+                    <div class="col-md-6">
+                        <input type="text" value="{{permissions.codename}}" id="permission_codename" name="permission_codename" class="form-control" placeholder="Permission code name">
+                    </div>
+                </div>
+
+                <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-6">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+</div>
+<!-- END Form Example with Blocks in the Grid -->
+</div>
+<!-- END Page Content -->
+
+{% endblock %}
+
+
+{% block footerblock %}
+
+<script>
+    var element = document.getElementById('permissions');
+    element.classList.add('active')
+</script>
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'js/pages/formsGeneral.js' %}"></script>
+<script>$(function(){ FormsGeneral.init(); });</script>
+
+{% endblock %}
