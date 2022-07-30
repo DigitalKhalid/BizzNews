@@ -6,18 +6,18 @@
 <div class="content-header">
     <div class="header-section">
         <h1>
-            <i class="fa fa-table"></i>User Permissions<br><small>Add or remove permission(s) to {{usermanager.username}}.</small>
+            <i class="fa fa-table"></i>Group Permissions<br><small>Add or remove permission(s) to {{group.name}}.</small>
         </h1>
     </div>
 </div>
 <ul class="breadcrumb breadcrumb-top">
-    <li>Users</li>
-    <li>{{usermanager.username}}</li>
+    <li>Groups</li>
+    <li>{{group.name}}</li>
     <li><a href="">Permissions</a></li>
 </ul>
 <!-- END Header -->
 
-<!-- Add Permissions -->
+<!-- Add Groups -->
 <div class="row">
     <div class="col-md-12">
         <!-- Basic Form Elements Block -->
@@ -26,12 +26,12 @@
             <div class="block-title">
                 <div class="block-options pull-right">
                 </div>
-                <h2><strong>Add</strong> Permission for {{usermanager.username}}</h2>
+                <h2><strong>Add</strong> Permission for {{group.name}}</h2>
             </div>
             <!-- END Form Elements Title -->
 
             <!-- Basic Form Elements Content -->
-            <form action="{% url 'user_addpermission' pk=usermanager.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+            <form action="{% url 'group_addpermission' pk=group.pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
                 {% csrf_token %}
 
                 <div class="form-group">
@@ -57,15 +57,15 @@
         <!-- END Basic Form Elements Block -->
     </div>
 </div>
-<!-- END Add Permissions -->
+<!-- END Add Groups -->
 
-<!-- Permission List -->
+<!-- Group List -->
 <div class="block full">
     <!-- Basic Form Elements Title -->
     <div class="block-title">
         <div class="block-options pull-right">
         </div>
-        <h2><strong>{{usermanager.username}}</strong> have following permission(s)</h2>
+        <h2><strong>{{group.name}}</strong> have following permission(s)</h2>
     </div>
     <!-- END Form Elements Title -->
 
@@ -79,12 +79,12 @@
             </thead>
             <tbody>
 
-                {% for user_permissions in user_permissions %}
+                {% for group_permissions in group_permissions %}
                 <tr>
-                    <td>{{user_permissions}}</td>
+                    <td>{{group_permissions}}</td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a href="{% url 'user_deletepermission' pk=usermanager.pk permissionname=user_permissions %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Remove <i class="fa fa-times"></i></a>
+                            <a href="{% url 'group_deletepermission' pk=group.pk permissionname=group_permissions %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Remove <i class="fa fa-times"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -93,14 +93,14 @@
         </table>
     </div>
 </div>
-<!-- END Permission List -->
+<!-- END Group List -->
 
 {% endblock %}
 
 {% block footerblock %}
 
 <script>
-    var element = document.getElementById('user_list');
+    var element = document.getElementById('user_group');
     element.classList.add('active')
 </script>
 

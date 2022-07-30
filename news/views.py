@@ -3,23 +3,25 @@ from catagory.models import Catagory
 from news.models import News
 from bizzsole.siteinfo import site_name, site_about, site_contact, site_facebook, site_email, site_twiter, site_youtube, site_address, site_icon, site_logo
 import os
-from django.contrib import messages
 from subcatagory.models import Subcatagory
-from bizzsole.bizzfunc import error
+from bizzsole.bizzfunc import error, access_permission
 from contactform.models import Contacts
 from usermanager.models import Usermanager
 
 site_name = site_name + ' | News'
-news = News.objects.all
 subcatagory = Subcatagory.objects.all
 catagory = Catagory.objects.all
 unread_contacts = Contacts.objects.filter(readstatus=False).count()
+
+#---------------------------------------
+#     News Front End
+#---------------------------------------
 
 # News Detail
 def news_detail(request, pk):
     news_detail = News.objects.filter(pk = pk)
     popular_news = News.objects.all().order_by('-news_views')[:5]
-
+    news = News.objects.all()
     newstags = News.objects.get(pk = pk).news_tags
     tags = newstags.split(',')
 
@@ -53,16 +55,26 @@ def news_detail(request, pk):
         'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
+#---------------------------------------
+#     News Admin
+#---------------------------------------
+
 # News List
 def news_list(request):
-    # Login Check Start
-    if not request.user.is_authenticated:
-        return redirect('mylogin')
-    # Login Check End
-
+    # Permission Check
+    permission = access_permission(request, 'news.view_news', user_only_data=True)
+    if permission == -1: return redirect('mylogin')
+    if permission == 0: return error(request, 'access_denied', 'Access Denied')
+    print(permission)
+    if permission == 2:
+        news = News.objects.filter(news_username=request.user.username)
+    else:
+        news = News.objects.all()
+    # End Permission Check
+    
     return render(request, 'news_list.html',{
         'site_name':site_name, 
-        'news' : news, 
+        'news':news, 
         'catagory':catagory, 
         'subcatagory':subcatagory,
         'site_icon':site_icon,
@@ -72,12 +84,14 @@ def news_list(request):
         'activeuser':Usermanager.objects.filter(username=request.user.username)
         })
 
+
 # Add News
 def add_news(request):
-    # Login Check Start
-    if not request.user.is_authenticated:
-        return redirect('mylogin')
-    # Login Check End
+    # Permission Check
+    permission = access_permission(request,'news.add_news')
+    if permission == -1: return redirect('mylogin')
+    if permission == 0: return error(request, 'access_denied', 'Access Denied')
+    # End Permission Check
 
     if request.method == 'POST':
         save_news(request, 'new', 1)
@@ -100,31 +114,38 @@ def add_news(request):
 
 # Delete News
 def delete_news(request, pk):
-    # Login Check Start
-    if not request.user.is_authenticated:
-        return redirect('mylogin')
-    # Login Check End
-
-    delete_data = News.objects.get(pk=pk)
+    # Permission Check
+    permission = access_permission(request, 'news.delete_news', user_only_data=True)
+    if permission == -1: return redirect('mylogin')
+    if permission == 0: return error(request, 'access_denied', 'Access Denied')
+    if permission == 2:
+        news = News.objects.get(pk=pk, news_username=request.user.username)
+    else:
+        news = News.objects.get(pk=pk)
+    # End Permission Check
     
-    if len(delete_data.news_image) > 0:
-        os.remove(delete_data.news_image.path)
+    if len(news.news_image) > 0:
+        os.remove(news.delete_data.news_image.path)
     
-    delete_data.delete()
-    messages.success(request, 'News deleted successfully.')
+    news.delete()
 
     return redirect('news_list')
 
+
 # Edit News
 def edit_news(request, pk):
-    # Login Check Start
-    if not request.user.is_authenticated:
-        return redirect('mylogin')
-    # Login Check End
-    
-    global old_image
-    news = News.objects.get(pk=pk)
+    # Permission Check
+    permission = access_permission(request, 'news.edit_news', user_only_data=True)
+    if permission == -1: return redirect('mylogin')
+    if permission == 0: return error(request, 'access_denied', 'Access Denied')
+    if permission == 2:
+        news = News.objects.get(pk=pk, news_username = request.user.username)
+    else:
+        news = News.objects.get(pk=pk)
+    # End Permission Check
 
+    global old_image
+    
     # Date Makeup
     if len(str(news.news_date.day)) == 1:
         news_day = '0' + str(news.news_date.day)
@@ -142,7 +163,7 @@ def edit_news(request, pk):
     subcatagory = Subcatagory.objects.all
 
     if len(News.objects.filter(pk=pk)) == 0:
-        return error(request,'Data not available')
+        return render(request, 'data_na', title='None')
 
     old_image = news.news_image
 
@@ -198,7 +219,8 @@ def save_news(request, type='new' or 'edit', pk=None):
                         news_summary = news_summary,
                         news_detail = news_detail,
                         news_image = news_image,
-                        news_tags = news_tags)
+                        news_tags = news_tags,
+                        news_username = request.user.username)
 
                     write_data.save()
                     

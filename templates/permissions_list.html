@@ -16,7 +16,7 @@
 </ul>
 <!-- END Header -->
 
-<!-- Add Groups -->
+<!-- Add Permissions -->
 <div class="row">
     <div class="col-md-12">
         <!-- Basic Form Elements Block -->
@@ -34,12 +34,23 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="col-md-1 control-label" for="permission_name">Permission</label>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input type="text" id="permission_name" name="permission_name" class="form-control" placeholder="Permission name" required>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input type="text" id="permission_codename" name="permission_codename" class="form-control" placeholder="Permission code name" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select id="content_type" name="content_type" class="form-control" size="1">
+                            <option value="0">Please select model</option>
+                            
+                            {% for content_type in content_type %}
+                                <option value="{{content_type.pk}}">{{content_type.app_label}} | {{content_type.model}}</option>
+                            {% endfor %}
+
+                        </select>
                     </div>
 
                     <div class="col-md-2">
@@ -52,9 +63,9 @@
         <!-- END Basic Form Elements Block -->
     </div>
 </div>
-<!-- END Add Groups -->
+<!-- END Add Permissions -->
 
-<!-- Group List -->
+<!-- Permission List -->
 <div class="block full">
     <!-- Basic Form Elements Title -->
     <div class="block-title">
@@ -68,7 +79,11 @@
         <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
             <thead>
                 <tr>
-                    <th>Permission Name</th>
+                    <th>Permission</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -77,6 +92,10 @@
                 {% for permissions in permissions %}
                 <tr>
                     <td>{{permissions.content_type}} | {{permissions.name}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td class="text-center">
                         <div class="btn-group">
                             <a href="{% url 'permissions_edit' pk=permissions.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
@@ -89,7 +108,7 @@
         </table>
     </div>
 </div>
-<!-- END Group List -->
+<!-- END Permission List -->
 
 {% endblock %}
 

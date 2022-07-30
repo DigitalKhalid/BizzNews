@@ -11,6 +11,7 @@ class News(models.Model):
     news_writer = models.CharField(max_length=50)
     news_views = models.IntegerField(default=0)
     news_tags = models.TextField(default='-')
-
+    news_username = models.CharField(max_length=50)
+    
     def __str__(self):
         return self.news_title

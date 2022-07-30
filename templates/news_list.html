@@ -56,7 +56,7 @@
                     <td class="text-center">
                         <div class="btn-group">
                             <a href="{% url 'edit_news' pk=news.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
-                            <a href="{% url 'delete_news' pk=news.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
+                            <a onclick="return confirm ('Are you sure to delete?')" href="{% url 'delete_news' pk=news.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
                         </div>
                     </td>
                 </tr>

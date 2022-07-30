@@ -48,6 +48,22 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-md-1 control-label" for="content_type">Model</label>
+                    <div class="col-md-6">
+                        <select id="content_type" name="content_type" class="form-control" size="1">
+                            {% for content_type in content_type %}
+                                <option value="{{content_type.pk}}">{{content_type.app_label}} | {{content_type.model}}</option>
+                            {% endfor %}
+                            
+                            {% for contenttype_list in contenttype_list %}
+                                <option value="{{contenttype_list.pk}}">{{contenttype_list.app_label}} | {{contenttype_list.model}}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group form-actions">
                     <div class="col-md-9 col-md-offset-6">
                         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Save</button>

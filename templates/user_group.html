@@ -75,6 +75,7 @@
                     <td>{{group.name}}</td>
                     <td class="text-center">
                         <div class="btn-group">
+                            <a href="{% url 'group_addpermission' pk=group.pk %}" data-toggle="tooltip" title="Permissions" class="btn btn-xs btn-default">Permissions <i class="fa fa-low-vision"></i></a>
                             <a href="{% url 'user_group_edit' pk=group.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default">Edit <i class="fa fa-pencil"></i></a>
                             <a href="{% url 'user_group_delete' pk=group.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger">Delete <i class="fa fa-times"></i></a>
                         </div>

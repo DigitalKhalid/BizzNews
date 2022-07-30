@@ -17,4 +17,6 @@ urlpatterns = [
     path('panel/users/permissions/edit/<pk>', views.permissions_edit, name='permissions_edit'),
     path('panel/users/permissions/assign/<pk>', views.user_addpermission, name='user_addpermission'),
     path('panel/users/permissions/delete/<pk>/<permissionname>', views.user_deletepermission, name='user_deletepermission'),
+    path('panel/users/group/permissions/assign/<pk>', views.group_addpermission, name='group_addpermission'),
+    path('panel/users/group/permissions/delete/<pk>/<permissionname>', views.group_deletepermission, name='group_deletepermission'),
 ]
